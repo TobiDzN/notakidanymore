@@ -17,9 +17,12 @@ public class PlayerMovment : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+    Animator animator;
+
     // Update is called once per frame
     void Update()
     {
+        animator = GetComponent<Animator>();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -44,7 +47,7 @@ public class PlayerMovment : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-        
+       
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 18;
@@ -53,5 +56,32 @@ public class PlayerMovment : MonoBehaviour
         {
             speed = 12;
         }
+
+
+        if(z>0)
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            gameObject.GetComponent<Animator>().enabled = true;
+            animator.SetFloat("Speed", 1);
+            animator.SetBool("IsMoving",true);
+            animator.SetBool("IsIdle", false);
+        }
+        else if(z<0)
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            gameObject.GetComponent<Animator>().enabled = true;
+            animator.SetFloat("Speed", -1);
+            animator.SetBool("IsMoving", true);
+            animator.SetBool("IsIdle", false); ;
+        }
+        else if(z==0)
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            gameObject.GetComponent<Animator>().enabled = true;
+            animator.SetFloat("Speed", 1);
+            animator.SetBool("IsMoving", false);
+            animator.SetBool("IsIdle", true);
+        }
+
     }
 }
