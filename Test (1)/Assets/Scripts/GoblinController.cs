@@ -1,25 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GoblinController : MonoBehaviour
 {
-
     public int minRange;
     Animator animator;
-    //
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void Awake()
     {
-        animator = GetComponent <Animator>();
+        animator = GetComponent<Animator>();
     }
 
     private Transform target = null;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -65,19 +63,17 @@ public class GoblinController : MonoBehaviour
             transform.Translate(direction * 3 * Time.deltaTime);
         }
 
-        if(tooClose)
+        if (tooClose)
         {
             animator.SetBool("Move01", false);
             animator.SetBool("Idle01", false);
             animator.SetBool("Attack01", true);
         }
-        else if(target!=null)
+        else if (target != null)
         {
             animator.SetBool("Move01", true);
             animator.SetBool("Idle01", false);
             animator.SetBool("Attack01", false);
         }
-
-        //Now i can run faster and run from that hoe
     }
 }
