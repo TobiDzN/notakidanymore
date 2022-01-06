@@ -3,11 +3,10 @@ using UnityEngine;
 public class FlashlightToggle : MonoBehaviour
 {
     public Light Light;
-    private bool isActive = true;
+    private bool isActive;
 
     void Update()
     {
-        
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F))
         {
             Light.GetComponent<Light>().enabled = isActive;
