@@ -57,30 +57,122 @@ public class PlayerMovment : MonoBehaviour
             speed = 12;
         }
 
-
+        //1 Right -1 Left
         if(z>0)
-        {
-            gameObject.GetComponent<Animator>().enabled = false;
-            gameObject.GetComponent<Animator>().enabled = true;
-            animator.SetFloat("Speed", 1);
-            animator.SetBool("IsMoving",true);
-            animator.SetBool("IsIdle", false);
+        {  
+            if (x == 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z",1);
+                animator.SetInteger("X", 0);
+            }
+            else if(x>0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 1);
+                animator.SetInteger("X", 1);
+            }
+            else if(x<0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 1);
+                animator.SetInteger("X", -1);
+            }
         }
         else if(z<0)
         {
-            gameObject.GetComponent<Animator>().enabled = false;
-            gameObject.GetComponent<Animator>().enabled = true;
-            animator.SetFloat("Speed", -1);
-            animator.SetBool("IsMoving", true);
-            animator.SetBool("IsIdle", false); ;
+            if (x == 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", -1);
+                animator.SetInteger("X", 0);
+            }
+            else if (x > 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", -1);
+                animator.SetInteger("X", 1);
+            }
+            else if (x < 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", -1);
+                animator.SetInteger("X", -1);
+            }
         }
-        else if(z==0)
+        else if(x>0)
+        {
+            if (z == 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 0);
+                animator.SetInteger("X", 1);
+            }
+            else if (z > 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 1);
+                animator.SetInteger("X", 1);
+            }
+            else if (z < 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", -1);
+                animator.SetInteger("X", 1);
+            }
+        }
+        else if(x<0)
+        {
+            if (z == 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 0);
+                animator.SetInteger("X", -1);
+            }
+            else if (z > 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", 1);
+                animator.SetInteger("X", -1);
+            }
+            else if (z < 0)
+            {
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.GetComponent<Animator>().enabled = true;
+                animator.SetBool("IsIdle", false); ;
+                animator.SetInteger("Z", -1);
+                animator.SetInteger("X", -1);
+            }
+        }
+        else if(z==0&&x==0)
         {
             gameObject.GetComponent<Animator>().enabled = false;
             gameObject.GetComponent<Animator>().enabled = true;
-            animator.SetFloat("Speed", 1);
-            animator.SetBool("IsMoving", false);
             animator.SetBool("IsIdle", true);
+            animator.SetInteger("Z", 0);
+            animator.SetInteger("X", 0);
         }
 
     }
