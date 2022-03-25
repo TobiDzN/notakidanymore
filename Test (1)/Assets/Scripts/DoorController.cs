@@ -6,26 +6,27 @@ public class DoorController : MonoBehaviour
 {
     [SerializeField] private Animator animator = null;
 
-    [SerializeField] private string doorstate="idle";
+    [SerializeField] private string doorstate = "idle";
 
-                      bool entered = false;
+    bool entered = false;
 
+    public GameObject itext;
 
     public void DoorControl()
     {
-        if(doorstate == "idle")
+        if (doorstate == "idle")
         {
             animator.SetBool("isClose", false);
             animator.SetBool("isOpen", false);
             animator.SetBool("isIdle", true);
         }
-        else if(doorstate == "opening")
+        else if (doorstate == "opening")
         {
             animator.SetBool("isClose", false);
             animator.SetBool("isOpen", true);
             animator.SetBool("isIdle", false);
         }
-        else if(doorstate == "closing")
+        else if (doorstate == "closing")
         {
             animator.SetBool("isClose", true);
             animator.SetBool("isOpen", false);
@@ -34,12 +35,13 @@ public class DoorController : MonoBehaviour
     }
 
 
-        void Update()
+    void Update()
+    {
+
+        if (entered == true)
         {
-            if(entered == true)
-             {
             if (Input.GetKeyDown(KeyCode.E))
-               {
+            {
                 if (doorstate == "idle")
                 {
                     doorstate = "opening";
@@ -54,26 +56,23 @@ public class DoorController : MonoBehaviour
                 {
                     doorstate = "opening";
                     DoorControl();
-               }
-             }
-           }
-
-        }
-    
-        void OnTriggerEnter(Collider other)
-         {     
-            if (other.CompareTag("Player"))
-             {
-                entered = true;
-             }
-         }
-        
-        void OnTriggerExit(Collider other)
-         {
-            if (other.CompareTag("Player"))
-             {
-            entered = false;
+                }
             }
-         }
-    
+        }
+
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        entered = true;
+        itext.SetActive(true);
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        entered = false;
+        itext.SetActive(false);
+    }
+
+
 }
