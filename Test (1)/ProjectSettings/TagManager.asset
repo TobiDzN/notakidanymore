@@ -24,21 +24,21 @@ TagManager:
   - 
   - 
   - 
-  - Door15
-  - 'Door14 '
-  - 'Door13 '
-  - 'Door12 '
-  - Door11
-  - 'Door10 '
-  - 'Door9 '
-  - 'Door8 '
-  - 'Door7 '
-  - Door6
-  - Door5
-  - 'Door4 '
-  - Door3
-  - 'Door2 '
-  - Door1
+  - 
+  - 
+  - ' '
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
