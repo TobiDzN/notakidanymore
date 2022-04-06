@@ -17,6 +17,8 @@ public class PlayerMovment : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+    bool ismoving;
+
     Animator animator;
 
     // Update is called once per frame
@@ -57,8 +59,13 @@ public class PlayerMovment : MonoBehaviour
             speed = 12;
         }
 
+             
+        //FindObjectOfType<AudioManager>().Play("footstepsconcrete");
+        //FindObjectOfType<AudioManager>().StopPlaying("footstepsconcrete");
+
+
         //1 Right -1 Left
-        if(z>0)
+        if (z>0)
         {  
             if (x == 0)
             {

@@ -14,11 +14,12 @@ public class WallOpen : MonoBehaviour
 
     public LayerMask interactablelayermask;
 
+    public ParticleSystem dust;
+
     bool entered = false;
 
     bool isClickable = true;
 
-    
 
 
     public void DoorControl()
@@ -47,7 +48,9 @@ public class WallOpen : MonoBehaviour
     IEnumerator waiter()
     {
         isClickable = false;
+        dust.Play();
         yield return new WaitForSeconds(5);
+        dust.Stop();
         isClickable = true;
     }
 
@@ -56,8 +59,8 @@ public class WallOpen : MonoBehaviour
     {
         RaycastHit hit;
 
-
-
+        
+        
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4, interactablelayermask))
         {
             torch.GetComponent<Light>().enabled = true;
@@ -81,16 +84,19 @@ public class WallOpen : MonoBehaviour
                     StartCoroutine(waiter());
                     if (doorstate == "idle")
                     {
+                        FindObjectOfType<AudioManager>().Play("WallOpen");
                         doorstate = "opening";
                         DoorControl();
                     }
                     else if (doorstate == "opening")
                     {
+                        FindObjectOfType<AudioManager>().Play("WallClose");
                         doorstate = "closing";
                         DoorControl();
                     }
                     else if (doorstate == "closing")
                     {
+                        FindObjectOfType<AudioManager>().Play("WallOpen");
                         doorstate = "opening";
                         DoorControl();
                     }
