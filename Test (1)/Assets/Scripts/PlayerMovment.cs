@@ -17,7 +17,10 @@ public class PlayerMovment : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+    public bool ismoving;
+
     Animator animator;
+
 
     // Update is called once per frame
     void Update()
@@ -57,8 +60,18 @@ public class PlayerMovment : MonoBehaviour
             speed = 12;
         }
 
+       if(z==0&&x==0)
+        {
+            ismoving = false;
+        }
+       else
+        {
+            ismoving = true;
+        }
+
+
         //1 Right -1 Left
-        if(z>0)
+        if (z>0)
         {  
             if (x == 0)
             {
