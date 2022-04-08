@@ -50,7 +50,7 @@ public class PlayerMovment : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-       
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 18;
@@ -60,28 +60,28 @@ public class PlayerMovment : MonoBehaviour
             speed = 12;
         }
 
-       if(z==0&&x==0)
+        if (z == 0 && x == 0)
         {
             ismoving = false;
         }
-       else
+        else
         {
             ismoving = true;
         }
 
 
         //1 Right -1 Left
-        if (z>0)
-        {  
+        if (z > 0)
+        {
             if (x == 0)
             {
                 gameObject.GetComponent<Animator>().enabled = false;
                 gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
-                animator.SetInteger("Z",1);
+                animator.SetInteger("Z", 1);
                 animator.SetInteger("X", 0);
             }
-            else if(x>0)
+            else if (x > 0)
             {
                 gameObject.GetComponent<Animator>().enabled = false;
                 gameObject.GetComponent<Animator>().enabled = true;
@@ -89,7 +89,7 @@ public class PlayerMovment : MonoBehaviour
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", 1);
             }
-            else if(x<0)
+            else if (x < 0)
             {
                 gameObject.GetComponent<Animator>().enabled = false;
                 gameObject.GetComponent<Animator>().enabled = true;
@@ -98,7 +98,7 @@ public class PlayerMovment : MonoBehaviour
                 animator.SetInteger("X", -1);
             }
         }
-        else if(z<0)
+        else if (z < 0)
         {
             if (x == 0)
             {
@@ -125,7 +125,7 @@ public class PlayerMovment : MonoBehaviour
                 animator.SetInteger("X", -1);
             }
         }
-        else if(x>0)
+        else if (x > 0)
         {
             if (z == 0)
             {
@@ -152,7 +152,7 @@ public class PlayerMovment : MonoBehaviour
                 animator.SetInteger("X", 1);
             }
         }
-        else if(x<0)
+        else if (x < 0)
         {
             if (z == 0)
             {
@@ -179,7 +179,7 @@ public class PlayerMovment : MonoBehaviour
                 animator.SetInteger("X", -1);
             }
         }
-        else if(z==0&&x==0)
+        else if (z == 0 && x == 0)
         {
             gameObject.GetComponent<Animator>().enabled = false;
             gameObject.GetComponent<Animator>().enabled = true;
