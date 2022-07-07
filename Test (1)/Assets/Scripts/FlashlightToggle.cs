@@ -11,7 +11,7 @@ public class FlashlightToggle : MonoBehaviour
         {
             Light.GetComponent<Light>().enabled = isActive;
             isActive = !isActive;
-            Debug.Log("Activate / Deactivate Flashlight");
+            //Debug.Log("Activate / Deactivate Flashlight");
         }
     }
 }
