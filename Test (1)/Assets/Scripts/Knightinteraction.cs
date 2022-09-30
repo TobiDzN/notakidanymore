@@ -24,4 +24,8 @@ public class Knightinteraction : MonoBehaviour
         entered = true; 
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        entered = false;
+    }
 }

@@ -19,10 +19,18 @@ public class PlayerMovment : MonoBehaviour
 
     public bool ismoving;
 
+    bool isInChaliceRange = false;
+
     Animator animator;
 
 
-    // Update is called once per frame
+    
+
+    public bool setChalice(bool status)
+    {
+        return isInChaliceRange=status;
+    }
+    
     void Update()
     {
         animator = GetComponent<Animator>();
@@ -46,6 +54,21 @@ public class PlayerMovment : MonoBehaviour
         //    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         //}
 
+        //IEnumerator waiter()
+        //{
+        //    gameObject.GetComponent<Animator>().enabled = false;
+        //    gameObject.GetComponent<Animator>().enabled = true;
+        //    animator.SetBool("IsIdle", false); ;
+        //    animator.SetBool("PickingItem", true);
+
+        //    yield return new WaitForSeconds(2);
+
+        //    gameObject.GetComponent<Animator>().enabled = false;
+        //    gameObject.GetComponent<Animator>().enabled = true;
+        //    animator.SetBool("IsIdle", true); ;
+        //    animator.SetBool("PickingItem", false);
+        //}
+
 
         velocity.y += gravity * Time.deltaTime;
 
@@ -67,6 +90,21 @@ public class PlayerMovment : MonoBehaviour
         else
         {
             ismoving = true;
+        }
+
+        if(isInChaliceRange)
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            gameObject.GetComponent<Animator>().enabled = true;
+            animator.SetBool("IsIdle", true); ;
+            animator.SetBool("PickingItem", true);
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().enabled = false;
+            gameObject.GetComponent<Animator>().enabled = true;
+            animator.SetBool("IsIdle", true); ;
+            animator.SetBool("PickingItem", false);
         }
 
 
