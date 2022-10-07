@@ -8,8 +8,15 @@ public class ChaliceScript : MonoBehaviour
 
     private PlayerMovment playerMovment;
 
-    [SerializeField]GameObject UI,fullUI,EmtpyUI,Chalice;
-    [SerializeField] Component collider;
+    [SerializeField]GameObject UI,fullUI,EmtpyUI,Chalicego;
+    [SerializeField] SphereCollider scollider;
+
+    GameObject [] watersources;
+    
+    bool inCoasterRange = false;
+
+    bool ChaliceAchievement = false;
+
 
     private void Awake()
     {
@@ -19,8 +26,32 @@ public class ChaliceScript : MonoBehaviour
     IEnumerator waiter()
     {
         yield return new WaitForSeconds(2);
-        collider.gameObject.SetActive(false);
+        scollider.GetComponent<Collider>().enabled = false;
+        Chalicego.SetActive(false);
+        playerMovment.setChalice(false);
     }
+    public void isChaliceFull()
+    {
+        if (EmtpyUI.active == true)
+        {
+            EmtpyUI.gameObject.SetActive(false);
+            fullUI.gameObject.SetActive(true);
+            foreach (GameObject go in watersources)
+            {
+                go.GetComponent<SphereCollider>().enabled = false;
+            }
+            ChaliceAchievement = true;
+        }
+    }
+
+    public void isInCoasterRange()
+    {
+        if (fullUI.active == true)
+        {
+            Chalicego.SetActive(true);
+            transform.position = new Vector3(89.406189f, 13.7249889f, -116.198486f);
+        }
+    }    
 
     void Update()
     {
@@ -29,24 +60,30 @@ public class ChaliceScript : MonoBehaviour
             playerMovment.setChalice(true);
             UI.SetActive(true);
             EmtpyUI.SetActive(true);
-            Chalice.SetActive(false);       
             StartCoroutine(waiter());
-            
+            watersources  = GameObject.FindGameObjectsWithTag("Water");
+            foreach (GameObject go in watersources)
+            {
+                go.GetComponent<SphereCollider>().enabled = true;
+            }
+            entered = false;
         }
         else
         {
             playerMovment.setChalice(false);
         }
+
+ 
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        entered = true;
+    {   
+            entered = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        entered=false;
+            entered =false;
     }
 
 }

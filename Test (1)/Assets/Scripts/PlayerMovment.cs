@@ -23,7 +23,6 @@ public class PlayerMovment : MonoBehaviour
 
     Animator animator;
 
-
     
 
     public bool setChalice(bool status)
