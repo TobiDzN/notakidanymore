@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class ChaliceScript : MonoBehaviour
 {
+
+    //variables
     bool entered = false;
-
     private PlayerMovment playerMovment;
-
     [SerializeField]GameObject UI,fullUI,EmtpyUI,Chalicego;
     [SerializeField] SphereCollider scollider;
-
     GameObject [] watersources;
-    
     bool inCoasterRange = false;
-
     bool ChaliceAchievement = false;
-
+    
 
     private void Awake()
     {
         playerMovment = FindObjectOfType<PlayerMovment>();
     }
 
+    //Waits 2 seconds and then vanishes Chalice
     IEnumerator waiter()
     {
         yield return new WaitForSeconds(2);
@@ -30,9 +28,11 @@ public class ChaliceScript : MonoBehaviour
         Chalicego.SetActive(false);
         playerMovment.setChalice(false);
     }
+
+    //Fill up Chalice
     public void isChaliceFull()
     {
-        if (EmtpyUI.active == true)
+        if (EmtpyUI.activeSelf == true)
         {
             EmtpyUI.gameObject.SetActive(false);
             fullUI.gameObject.SetActive(true);
@@ -44,17 +44,21 @@ public class ChaliceScript : MonoBehaviour
         }
     }
 
+    //Place Chalice on Coaster
     public void isInCoasterRange()
     {
-        if (fullUI.active == true)
+        if (fullUI.activeSelf == true)
         {
             Chalicego.SetActive(true);
+            fullUI.gameObject.SetActive(false);
             transform.position = new Vector3(89.406189f, 13.7249889f, -116.198486f);
         }
     }    
 
     void Update()
     {
+
+        //Pick up Chalice
         if(entered&&Input.GetKeyDown(KeyCode.E))
         {
             playerMovment.setChalice(true);
@@ -75,6 +79,7 @@ public class ChaliceScript : MonoBehaviour
 
  
     }
+
 
     private void OnTriggerEnter(Collider other)
     {   
