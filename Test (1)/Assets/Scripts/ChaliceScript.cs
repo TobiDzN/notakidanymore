@@ -13,11 +13,15 @@ public class ChaliceScript : MonoBehaviour
     GameObject [] watersources;
     bool inCoasterRange = false;
     bool ChaliceAchievement = false;
+    [SerializeField] Vector3[] positions;
     
 
     private void Awake()
     {
         playerMovment = FindObjectOfType<PlayerMovment>();
+        Vector3 temp = positions[UnityEngine.Random.Range(0, 4)];
+        transform.position = temp;
+
     }
 
     //Waits 2 seconds and then vanishes Chalice
