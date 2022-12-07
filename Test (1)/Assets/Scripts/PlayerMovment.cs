@@ -21,8 +21,11 @@ public class PlayerMovment : MonoBehaviour
 
     bool isInChaliceRange = false;
 
-    Animator animator;
+    [SerializeField]Animator animator;
 
+    [SerializeField] Animator[] animators;
+    [SerializeField] bool[] select;
+    [SerializeField] GameObject[] characters;
     
 
     public bool setChalice(bool status)
@@ -32,7 +35,7 @@ public class PlayerMovment : MonoBehaviour
     
     void Update()
     {
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -46,6 +49,27 @@ public class PlayerMovment : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
+        characters[4].SetActive(false);
+        if (select[0])
+        {
+            characters[0].gameObject.SetActive(true);
+            animator = animators[0];
+        }
+        else if (select[1])
+        {
+            characters[1].gameObject.SetActive(true);
+            animator = animators[1];
+        }
+        else if (select[2])
+        {
+            characters[2].gameObject.SetActive(true);
+            animator = animators[2];
+        }
+        else if(select[3])
+        {
+            characters[3].gameObject.SetActive(true);
+            animator = animators[3];
+        }
 
         //if (Input.GetButtonDown("Jump") && isGrounded)
         //{
@@ -93,15 +117,15 @@ public class PlayerMovment : MonoBehaviour
 
         if(isInChaliceRange)
         {
-            gameObject.GetComponent<Animator>().enabled = false;
-            gameObject.GetComponent<Animator>().enabled = true;
+            //gameObject.GetComponent<Animator>().enabled = false;
+            //gameObject.GetComponent<Animator>().enabled = true;
             animator.SetBool("IsIdle", true); ;
             animator.SetBool("PickingItem", true);
         }
         else
         {
-            gameObject.GetComponent<Animator>().enabled = false;
-            gameObject.GetComponent<Animator>().enabled = true;
+            //gameObject.GetComponent<Animator>().enabled = false;
+            //gameObject.GetComponent<Animator>().enabled = true;
             animator.SetBool("IsIdle", true); ;
             animator.SetBool("PickingItem", false);
         }
@@ -112,24 +136,24 @@ public class PlayerMovment : MonoBehaviour
         {
             if (x == 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", 0);
             }
             else if (x > 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", 1);
             }
             else if (x < 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", -1);
@@ -139,24 +163,24 @@ public class PlayerMovment : MonoBehaviour
         {
             if (x == 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", -1);
                 animator.SetInteger("X", 0);
             }
             else if (x > 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", -1);
                 animator.SetInteger("X", 1);
             }
             else if (x < 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", -1);
                 animator.SetInteger("X", -1);
@@ -166,24 +190,24 @@ public class PlayerMovment : MonoBehaviour
         {
             if (z == 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 0);
                 animator.SetInteger("X", 1);
             }
             else if (z > 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", 1);
             }
             else if (z < 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", -1);
                 animator.SetInteger("X", 1);
@@ -193,24 +217,24 @@ public class PlayerMovment : MonoBehaviour
         {
             if (z == 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 0);
                 animator.SetInteger("X", -1);
             }
             else if (z > 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", 1);
                 animator.SetInteger("X", -1);
             }
             else if (z < 0)
             {
-                gameObject.GetComponent<Animator>().enabled = false;
-                gameObject.GetComponent<Animator>().enabled = true;
+                //gameObject.GetComponent<Animator>().enabled = false;
+                //gameObject.GetComponent<Animator>().enabled = true;
                 animator.SetBool("IsIdle", false); ;
                 animator.SetInteger("Z", -1);
                 animator.SetInteger("X", -1);
@@ -218,8 +242,8 @@ public class PlayerMovment : MonoBehaviour
         }
         else if (z == 0 && x == 0)
         {
-            gameObject.GetComponent<Animator>().enabled = false;
-            gameObject.GetComponent<Animator>().enabled = true;
+            //gameObject.GetComponent<Animator>().enabled = false;
+            //gameObject.GetComponent<Animator>().enabled = true;
             animator.SetBool("IsIdle", true);
             animator.SetInteger("Z", 0);
             animator.SetInteger("X", 0);
