@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FishNet.Connection;
+using FishNet.Object;
 
-public class ChaliceScript : MonoBehaviour
+public class ChaliceScript : NetworkBehaviour
 {
 
     //variables
@@ -11,17 +13,15 @@ public class ChaliceScript : MonoBehaviour
     [SerializeField]GameObject UI,fullUI,EmtpyUI,Chalicego;
     [SerializeField] SphereCollider scollider;
     GameObject [] watersources;
-    bool inCoasterRange = false;
+    //bool inCoasterRange = false;
     bool ChaliceAchievement = false;
     [SerializeField] Vector3[] positions;
     
 
     private void Awake()
     {
-        playerMovment = FindObjectOfType<PlayerMovment>();
         Vector3 temp = positions[UnityEngine.Random.Range(0, 4)];
         transform.position = temp;
-
     }
 
     //Waits 2 seconds and then vanishes Chalice
@@ -62,8 +62,10 @@ public class ChaliceScript : MonoBehaviour
     void Update()
     {
 
+        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
+
         //Pick up Chalice
-        if(entered&&Input.GetKeyDown(KeyCode.E))
+        if (entered&&Input.GetKeyDown(KeyCode.E))
         {
             playerMovment.setChalice(true);
             UI.SetActive(true);

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FishNet.Connection;
+using FishNet.Object;
 
-public class PlayerMovment : MonoBehaviour
+public class PlayerMovment : NetworkBehaviour
 {
     public CharacterController controller;
 
@@ -26,7 +28,24 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] Animator[] animators;
     [SerializeField] bool[] select;
     [SerializeField] GameObject[] characters;
-    
+
+
+    [SerializeField]
+    private float cameraYOffset = 0.4f;
+    [SerializeField]
+    private float cameraZOffset = 0.4f;
+    private Camera playerCamera;
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            playerCamera = Camera.main;
+            playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
+            playerCamera.transform.SetParent(transform);
+        }
+    }
 
     public bool setChalice(bool status)
     {
@@ -35,6 +54,10 @@ public class PlayerMovment : MonoBehaviour
     
     void Update()
     {
+        if(!base.IsOwner)
+        {
+            return;
+        }
         //animator = GetComponent<Animator>();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
