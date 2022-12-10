@@ -36,6 +36,10 @@ public class PlayerMovment : NetworkBehaviour
     private float cameraZOffset = 0.4f;
     private Camera playerCamera;
 
+    public float lookSpeed = 2.0f;
+    public float lookXLimit = 45.0f;
+    float rotationX = 0;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -45,6 +49,13 @@ public class PlayerMovment : NetworkBehaviour
             playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
             playerCamera.transform.SetParent(transform);
         }
+    }
+
+    void Start()
+    {
+        // Lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public bool setChalice(bool status)
@@ -68,10 +79,14 @@ public class PlayerMovment : NetworkBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-
         Vector3 move = transform.right * x + transform.forward * z;
-
         controller.Move(move * speed * Time.deltaTime);
+
+        rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
         characters[4].SetActive(false);
         if (select[0])
         {
