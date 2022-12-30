@@ -62,8 +62,14 @@ public class PlayerMovment : NetworkBehaviour
     {
         return isInChaliceRange=status;
     }
-    
-    void Update()
+
+    public int setSelect(int selected)
+    {
+        select[selected] = true;
+        return selected;
+    }
+
+        void Update()
     {
         if(!base.IsOwner)
         {
@@ -87,6 +93,7 @@ public class PlayerMovment : NetworkBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
+        
         characters[4].SetActive(false);
         if (select[0])
         {
