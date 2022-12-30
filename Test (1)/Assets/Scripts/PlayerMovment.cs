@@ -1,9 +1,10 @@
+using Alteruna;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerMovment : MonoBehaviour
+public class PlayerMovment : AttributesSync
 {
     public CharacterController controller;
 
@@ -23,12 +24,11 @@ public class PlayerMovment : MonoBehaviour
     public static bool isInChaliceRange = false;
 
     [SerializeField]Animator animator;
-
+    
     [SerializeField] Animator[] animators;
     [SerializeField] bool[] select;
     [SerializeField] GameObject[] characters;
-
-
+    
     [SerializeField]
     private float cameraYOffset = 0.4f;
     [SerializeField]
@@ -48,7 +48,6 @@ public class PlayerMovment : MonoBehaviour
         if (!_avatar.IsMe)
             return;
 
-
         playerCamera = Camera.main;
         playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
         playerCamera.transform.SetParent(transform);
@@ -59,9 +58,15 @@ public class PlayerMovment : MonoBehaviour
         Cursor.visible = false;
     }
 
+        public void SendRpc()
+        {
 
+        }
+
+
+     [SynchronizableMethod]
         void Update()
-    {
+        {
         if (!_avatar.IsMe)
             return;
 
