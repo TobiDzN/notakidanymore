@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FishNet.Connection;
-using FishNet.Object;
 
-public class PlayerMovment : NetworkBehaviour
+
+public class PlayerMovment : MonoBehaviour
 {
     public CharacterController controller;
 
@@ -40,19 +39,21 @@ public class PlayerMovment : NetworkBehaviour
     public float lookXLimit = 45.0f;
     float rotationX = 0;
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (base.IsOwner)
-        {
-            playerCamera = Camera.main;
-            playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
-            playerCamera.transform.SetParent(transform);
-        }
-    }
+    private Alteruna.Avatar _avatar;
 
     void Start()
     {
+        _avatar = GetComponent<Alteruna.Avatar>();
+
+        if (!_avatar.IsMe)
+            return;
+
+
+        playerCamera = Camera.main;
+        playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
+        playerCamera.transform.SetParent(transform);
+
+
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -71,11 +72,9 @@ public class PlayerMovment : NetworkBehaviour
 
         void Update()
     {
-        if(!base.IsOwner)
-        {
+        if (!_avatar.IsMe)
             return;
-        }
-        //animator = GetComponent<Animator>();
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
