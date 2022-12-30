@@ -20,7 +20,7 @@ public class PlayerMovment : MonoBehaviour
 
     public bool ismoving;
 
-    bool isInChaliceRange = false;
+    public static bool isInChaliceRange = false;
 
     [SerializeField]Animator animator;
 
@@ -59,16 +59,6 @@ public class PlayerMovment : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public bool setChalice(bool status)
-    {
-        return isInChaliceRange=status;
-    }
-
-    public int setSelect(int selected)
-    {
-        select[selected] = true;
-        return selected;
-    }
 
         void Update()
     {
@@ -94,25 +84,29 @@ public class PlayerMovment : MonoBehaviour
 
         
         characters[4].SetActive(false);
-        if (select[0])
+        if (select[0]||CharacterSelectScript.clicked&&CharacterSelectScript.whatClicked=="mage")
         {
             characters[0].gameObject.SetActive(true);
             animator = animators[0];
         }
-        else if (select[1])
+        else if (select[1] || CharacterSelectScript.clicked && CharacterSelectScript.whatClicked == "td")
         {
             characters[1].gameObject.SetActive(true);
             animator = animators[1];
         }
-        else if (select[2])
+        else if (select[2] || CharacterSelectScript.clicked && CharacterSelectScript.whatClicked == "tank")
         {
             characters[2].gameObject.SetActive(true);
             animator = animators[2];
         }
-        else if(select[3])
+        else if(select[3] || CharacterSelectScript.clicked && CharacterSelectScript.whatClicked == "medic")
         {
             characters[3].gameObject.SetActive(true);
             animator = animators[3];
+        }
+        else if(CharacterSelectScript.clicked && CharacterSelectScript.whatClicked == "random")
+        {
+            select[UnityEngine.Random.Range(0, 4)] = true;
         }
 
         //if (Input.GetButtonDown("Jump") && isGrounded)

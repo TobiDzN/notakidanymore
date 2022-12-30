@@ -5,47 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class CharacterSelectScript : MonoBehaviour
 {
-    private PlayerMovment playerMovment;
 
-    IEnumerator waiter()
+    public static bool clicked = false;
+    public static string whatClicked;
+
+    private void Awake()
     {
-        yield return new WaitForSeconds(5);
+        
     }
-
 
     public void MedicButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(waiter());
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
-        playerMovment.setSelect(3);
+        clicked = true;
+        whatClicked = "medic";
     }
     public void TDButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(waiter());
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
-        playerMovment.setSelect(1);
+        clicked = true;
+        whatClicked = "td";
     }
     public void TankButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(waiter());
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
-        playerMovment.setSelect(2);
+        clicked = true;
+        whatClicked = "tank";
     }
     public void MageButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(waiter());
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
-        playerMovment.setSelect(0);
+        clicked = true;
+        whatClicked = "mage";
     }
     public void RandomButton()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        StartCoroutine(waiter());
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
-        playerMovment.setSelect(UnityEngine.Random.Range(0,4));
+        clicked = true;
+        whatClicked = "random";
     }
+
+
 }

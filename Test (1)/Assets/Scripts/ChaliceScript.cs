@@ -8,7 +8,6 @@ public class ChaliceScript : MonoBehaviour
 
     //variables
     bool entered = false;
-    private PlayerMovment playerMovment;
     [SerializeField]GameObject UI,fullUI,EmtpyUI,Chalicego;
     [SerializeField] SphereCollider scollider;
     GameObject [] watersources;
@@ -29,7 +28,7 @@ public class ChaliceScript : MonoBehaviour
         yield return new WaitForSeconds(2);
         scollider.GetComponent<Collider>().enabled = false;
         Chalicego.SetActive(false);
-        playerMovment.setChalice(false);
+        PlayerMovment.isInChaliceRange = false;
     }
 
     //Fill up Chalice
@@ -61,12 +60,11 @@ public class ChaliceScript : MonoBehaviour
     void Update()
     {
 
-        playerMovment = GameObject.Find("First Person Player(Clone)").GetComponent<PlayerMovment>();
 
         //Pick up Chalice
         if (entered&&Input.GetKeyDown(KeyCode.E))
         {
-            playerMovment.setChalice(true);
+            PlayerMovment.isInChaliceRange = true;
             UI.SetActive(true);
             EmtpyUI.SetActive(true);
             StartCoroutine(waiter());
@@ -79,7 +77,7 @@ public class ChaliceScript : MonoBehaviour
         }
         else
         {
-            playerMovment.setChalice(false);
+            PlayerMovment.isInChaliceRange = false;
         }
 
  
