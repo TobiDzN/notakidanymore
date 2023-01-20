@@ -8,7 +8,6 @@ public class MouseLook : MonoBehaviour
 
     public Transform playerBody;
     float rotationX;
-    float xRotation = 0f;
     public float lookXLimit = 45.0f;
 
     // Start is called before the first frame update

@@ -58,11 +58,7 @@ public class PlayerMovment : AttributesSync
         Cursor.visible = false;
     }
 
-        public void SendRpc()
-        {
-
-        }
-
+        
 
      [SynchronizableMethod]
         void Update()
