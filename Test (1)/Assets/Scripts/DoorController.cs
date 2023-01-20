@@ -36,10 +36,15 @@ public class DoorController : AttributesSync
         }
     }
 
-
+    [SynchronizableMethod]
     void Update()
     {
+        BroadcastRemoteMethod("doorUpdate");
+    }
 
+    [SynchronizableMethod]
+    void doorUpdate()
+    {
         if (entered == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -61,7 +66,6 @@ public class DoorController : AttributesSync
                 }
             }
         }
-
     }
 
     public void OnTriggerEnter(Collider other)
