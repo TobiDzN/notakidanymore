@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerMovment : NetworkBehaviour
 {
     public CharacterController controller;
-
+    [SerializeField] private NetworkVariable<int> selectedSkin = new NetworkVariable<int>(0);
     public float speed = 12f;
     public float gravity = -19.61f;
     public float jumpHeight = 3f;
@@ -25,15 +25,16 @@ public class PlayerMovment : NetworkBehaviour
     public static bool isInChaliceRange = false;
 
     [SerializeField]Animator animator;
-    
+    [SerializeField] float normalAnimationSpeed = 1.0f;
+    [SerializeField] float boostedAnimationSpeed = 2.0f;
     [SerializeField] Animator[] animators;
     [SerializeField] bool[] select;
     [SerializeField] GameObject[] characters;
     
-    [SerializeField]
-    private float cameraYOffset = 0.4f;
-    [SerializeField]
-    private float cameraZOffset = 0.4f;
+    //[SerializeField]
+    //private float cameraYOffset = 0.4f;
+    //[SerializeField]
+    //private float cameraZOffset = 0.4f;
     [SerializeField]
     private Camera playerCamera;
 
@@ -42,21 +43,58 @@ public class PlayerMovment : NetworkBehaviour
     float rotationX = 0;
 
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        
 
-        //playerCamera = Camera.main;
-        //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
-        //playerCamera.transform.SetParent(transform);
+        if (IsOwner)
+        {
+            string selectedSkinChoice = CharacterSelectScript.whatClicked; // Access the choice from the script
 
+            switch (selectedSkinChoice)
+            {
+                case "medic":
+                    selectedSkin.Value = 0;
+                    select[0] = true;
+                    break;
+                case "td":
+                    selectedSkin.Value = 1;
+                    select[1] = true;
+                    break;
+                case "tank":
+                    selectedSkin.Value = 2;
+                    select[2] = true;
+                    break;
+                case "mage":
+                    selectedSkin.Value = 3;
+                    select[3] = true;
+                    break;
+                case "random":
+                    selectedSkin.Value = UnityEngine.Random.Range(0, 4);
+                    break;
+            }
+            SetSkinChoiceServerRpc(selectedSkin.Value);
 
-        // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+            // Lock cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
-        
+        [ServerRpc]
+        private void SetSkinChoiceServerRpc(int skinID)
+        {
+            selectedSkin.Value = skinID;
+
+            // Broadcast the skin choice to all clients.
+            SetSkinChoiceClientRpc(skinID);
+        }
+
+        [ClientRpc]
+        private void SetSkinChoiceClientRpc(int skinID)
+        {
+            // Receive the selected skin from the server and apply it on all clients.
+            selectedSkin.Value = skinID;
+        }
 
         void Update()
         {
@@ -138,10 +176,12 @@ public class PlayerMovment : NetworkBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 18;
+            animator.speed = boostedAnimationSpeed;
         }
         else
         {
             speed = 12;
+            animator.speed = normalAnimationSpeed;
         }
 
         if (z == 0 && x == 0)

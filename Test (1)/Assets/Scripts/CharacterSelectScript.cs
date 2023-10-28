@@ -39,34 +39,36 @@ public class CharacterSelectScript : MonoBehaviour
 
     public void MedicButton()
     {
-        LoadScene();
-        clicked = true;
-        whatClicked = "medic";
+        SetSkinChoice("medic"); // Pass the chosen skin as a parameter
     }
+
     public void TDButton()
     {
-        LoadScene();
-        clicked = true;
-        whatClicked = "td";
+        SetSkinChoice("td"); // Pass the chosen skin as a parameter
     }
+
     public void TankButton()
     {
-        LoadScene();
-        clicked = true;
-        whatClicked = "tank";
+        SetSkinChoice("tank"); // Pass the chosen skin as a parameter
     }
+
     public void MageButton()
     {
-        LoadScene();
-        clicked = true;
-        whatClicked = "mage";
+        SetSkinChoice("mage"); // Pass the chosen skin as a parameter
     }
+
     public void RandomButton()
+    {
+        SetSkinChoice("random"); // Pass the chosen skin as a parameter
+    }
+
+    private void SetSkinChoice(string skinChoice)
     {
         LoadScene();
         clicked = true;
-        whatClicked = "random";
+        whatClicked = skinChoice;
     }
+
 
 
 }
