@@ -1,10 +1,11 @@
-using Alteruna;
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 
-public class PlayerMovment : AttributesSync
+public class PlayerMovment : NetworkBehaviour
 {
     public CharacterController controller;
 
@@ -33,24 +34,21 @@ public class PlayerMovment : AttributesSync
     private float cameraYOffset = 0.4f;
     [SerializeField]
     private float cameraZOffset = 0.4f;
+    [SerializeField]
     private Camera playerCamera;
 
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
     float rotationX = 0;
 
-    private Alteruna.Avatar _avatar;
 
     void Start()
     {
-        _avatar = GetComponent<Alteruna.Avatar>();
+        
 
-        if (!_avatar.IsMe)
-            return;
-
-        playerCamera = Camera.main;
-        playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
-        playerCamera.transform.SetParent(transform);
+        //playerCamera = Camera.main;
+        //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z + cameraZOffset);
+        //playerCamera.transform.SetParent(transform);
 
 
         // Lock cursor
@@ -60,11 +58,12 @@ public class PlayerMovment : AttributesSync
 
         
 
-     [SynchronizableMethod]
         void Update()
         {
-        if (!_avatar.IsMe)
+         if(!IsOwner)
+        {
             return;
+        }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 

@@ -19,10 +19,6 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-   
-
-
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         transform.localRotation = Quaternion.Euler(rotationX, 0, 0);

@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Alteruna;
 
-public class DoorController : AttributesSync
-{
+
+public class DoorController : MonoBehaviour
+{ 
+    
     [SerializeField] private Animator animator = null;
 
-    [SynchronizableField] private string doorstate = "idle";
+     private string doorstate = "idle";
 
     bool entered = false;
 
     public GameObject itext;
 
-    [SynchronizableMethod]
+
     public void DoorControl()
     {
         if (doorstate == "idle")
@@ -36,13 +37,13 @@ public class DoorController : AttributesSync
         }
     }
 
-    [SynchronizableMethod]
+
     void Update()
     {
-        BroadcastRemoteMethod("doorUpdate");
+        doorUpdate();
     }
 
-    [SynchronizableMethod]
+    
     void doorUpdate()
     {
         if (entered == true)
@@ -52,17 +53,17 @@ public class DoorController : AttributesSync
                 if (doorstate == "idle")
                 {
                     doorstate = "opening";
-                    BroadcastRemoteMethod("DoorControl");
+                    DoorControl();
                 }
                 else if (doorstate == "opening")
                 {
                     doorstate = "closing";
-                    BroadcastRemoteMethod("DoorControl");
+                    DoorControl();
                 }
                 else if (doorstate == "closing")
                 {
                     doorstate = "opening";
-                    BroadcastRemoteMethod("DoorControl");
+                    DoorControl();
                 }
             }
         }
