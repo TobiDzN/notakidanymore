@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerMovment : NetworkBehaviour
 {
@@ -104,6 +104,9 @@ public class PlayerMovment : NetworkBehaviour
         }
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        
+
 
         if (isGrounded && velocity.y < 0)
         {
