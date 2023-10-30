@@ -159,8 +159,11 @@ public class LobbyUI : NetworkBehaviour {
 
     private void ClearLobby() {
         foreach (Transform child in container) {
-            if (child == playerSingleTemplate) continue;
-            if(child!=null)DestroyImmediate(child.gameObject);
+            if (child != null)
+            {
+                if (child == playerSingleTemplate) continue;
+                if (child) DestroyImmediate(child.gameObject);
+            }
         }
     }
 
